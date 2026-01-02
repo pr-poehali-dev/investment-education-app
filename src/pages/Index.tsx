@@ -172,56 +172,108 @@ const Index = () => {
       <main className="container mx-auto px-4 py-8">
         {activeSection === 'home' && (
           <div className="space-y-8 animate-fade-in">
-            <section className="text-center py-12">
-              <h2 className="text-5xl font-bold mb-4 text-foreground">
-                Научись инвестировать правильно
-              </h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Пошаговое обучение основам инвестирования, актуальные новости рынка и рекомендации по акциям для начинающих инвесторов
-              </p>
-              <div className="flex justify-center space-x-4">
-                <Button size="lg" onClick={() => setActiveSection('education')} className="flex items-center space-x-2">
-                  <Icon name="BookOpen" size={20} />
-                  <span>Начать обучение</span>
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => setActiveSection('recommendations')} className="flex items-center space-x-2">
-                  <Icon name="TrendingUp" size={20} />
-                  <span>Рекомендации</span>
-                </Button>
+            <section className="text-center py-16 relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <Icon name="TrendingUp" size={400} className="text-primary" />
+              </div>
+              <div className="relative z-10">
+                <div className="inline-block mb-6">
+                  <Badge className="text-lg px-6 py-2 bg-gradient-to-r from-primary to-secondary gradient-animate text-white border-0">
+                    🚀 Новое поколение инвесторов
+                  </Badge>
+                </div>
+                <h2 className="text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                  Научись инвестировать правильно
+                </h2>
+                <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto drop-shadow">
+                  Пошаговое обучение основам инвестирования, актуальные новости рынка и рекомендации по акциям
+                </p>
+                <div className="flex justify-center space-x-4">
+                  <Button size="lg" onClick={() => setActiveSection('education')} className="flex items-center space-x-2 bg-white text-primary hover:bg-white/90 shadow-xl pulse-glow font-semibold text-lg px-8">
+                    <Icon name="BookOpen" size={24} />
+                    <span>Начать обучение</span>
+                  </Button>
+                  <Button size="lg" variant="outline" onClick={() => setActiveSection('recommendations')} className="flex items-center space-x-2 bg-white/20 border-white text-white hover:bg-white/30 backdrop-blur-sm shadow-xl font-semibold text-lg px-8">
+                    <Icon name="TrendingUp" size={24} />
+                    <span>Рекомендации</span>
+                  </Button>
+                </div>
               </div>
             </section>
 
-            <section className="grid md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer glass-card border-l-4 border-l-primary animate-float" onClick={() => setActiveSection('education')}>
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              <Card className="hover:shadow-2xl transition-all hover:scale-110 hover:-rotate-1 cursor-pointer glass-card border-0 overflow-hidden group" onClick={() => setActiveSection('education')}>
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-blue-600"></div>
                 <CardHeader>
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                    <Icon name="GraduationCap" size={28} className="text-primary-foreground" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-4 shadow-2xl group-hover:scale-125 transition-transform">
+                    <Icon name="GraduationCap" size={32} className="text-white" />
                   </div>
-                  <CardTitle className="text-xl">Обучение</CardTitle>
-                  <CardDescription>Статьи и материалы для начинающих</CardDescription>
+                  <CardTitle className="text-2xl font-bold">Обучение</CardTitle>
+                  <CardDescription className="text-base">Статьи и материалы для начинающих</CardDescription>
                 </CardHeader>
               </Card>
 
-              <Card className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer glass-card border-l-4 border-l-secondary animate-float" style={{ animationDelay: '0.2s' }} onClick={() => setActiveSection('recommendations')}>
+              <Card className="hover:shadow-2xl transition-all hover:scale-110 hover:-rotate-1 cursor-pointer glass-card border-0 overflow-hidden group" onClick={() => setActiveSection('recommendations')}>
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-secondary to-green-600"></div>
                 <CardHeader>
-                  <div className="w-14 h-14 bg-gradient-to-br from-secondary to-secondary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                    <Icon name="LineChart" size={28} className="text-secondary-foreground" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mb-4 shadow-2xl group-hover:scale-125 transition-transform">
+                    <Icon name="LineChart" size={32} className="text-white" />
                   </div>
-                  <CardTitle className="text-xl">Рекомендации</CardTitle>
-                  <CardDescription>Какие акции стоит рассмотреть</CardDescription>
+                  <CardTitle className="text-2xl font-bold">Рекомендации</CardTitle>
+                  <CardDescription className="text-base">Какие акции стоит рассмотреть</CardDescription>
                 </CardHeader>
               </Card>
 
-              <Card className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer glass-card border-l-4 border-l-primary animate-float" style={{ animationDelay: '0.4s' }} onClick={() => setActiveSection('glossary')}>
+              <Card className="hover:shadow-2xl transition-all hover:scale-110 hover:rotate-1 cursor-pointer glass-card border-0 overflow-hidden group" onClick={() => setActiveSection('glossary')}>
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-pink-600"></div>
                 <CardHeader>
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                    <Icon name="BookMarked" size={28} className="text-primary-foreground" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center mb-4 shadow-2xl group-hover:scale-125 transition-transform">
+                    <Icon name="BookMarked" size={32} className="text-white" />
                   </div>
-                  <CardTitle className="text-xl">Словарь</CardTitle>
-                  <CardDescription>Все термины простыми словами</CardDescription>
+                  <CardTitle className="text-2xl font-bold">Словарь</CardTitle>
+                  <CardDescription className="text-base">Все термины простыми словами</CardDescription>
                 </CardHeader>
               </Card>
-            </section>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Card className="glass-card border-0 bg-gradient-to-br from-blue-500 to-blue-700 text-white">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center space-x-2">
+                    <Icon name="Users" size={24} />
+                    <span>12,543</span>
+                  </CardTitle>
+                  <CardDescription className="text-white/80">Активных учеников</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="glass-card border-0 bg-gradient-to-br from-green-500 to-green-700 text-white">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center space-x-2">
+                    <Icon name="BookOpen" size={24} />
+                    <span>156</span>
+                  </CardTitle>
+                  <CardDescription className="text-white/80">Обучающих статей</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="glass-card border-0 bg-gradient-to-br from-purple-500 to-purple-700 text-white">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center space-x-2">
+                    <Icon name="Award" size={24} />
+                    <span>8,921</span>
+                  </CardTitle>
+                  <CardDescription className="text-white/80">Успешных сделок</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="glass-card border-0 bg-gradient-to-br from-orange-500 to-red-600 text-white">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center space-x-2">
+                    <Icon name="TrendingUp" size={24} />
+                    <span>+47%</span>
+                  </CardTitle>
+                  <CardDescription className="text-white/80">Средняя доходность</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           </div>
         )}
 
