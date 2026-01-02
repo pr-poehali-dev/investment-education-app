@@ -5,9 +5,25 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+
+  const portfolioData = [
+    { month: 'Янв', value: 100000 },
+    { month: 'Фев', value: 105000 },
+    { month: 'Мар', value: 103000 },
+    { month: 'Апр', value: 112000 },
+    { month: 'Май', value: 118000 },
+    { month: 'Июн', value: 125000 },
+    { month: 'Июл', value: 122000 },
+    { month: 'Авг', value: 130000 },
+    { month: 'Сен', value: 135000 },
+    { month: 'Окт', value: 142000 },
+    { month: 'Ноя', value: 148000 },
+    { month: 'Дек', value: 156000 }
+  ];
 
   const articles = [
     {
@@ -333,8 +349,8 @@ const Index = () => {
                   <CardTitle className="text-lg">Общая стоимость</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-4xl font-bold text-primary">₽0</p>
-                  <p className="text-sm text-muted-foreground mt-2">Начните добавлять активы</p>
+                  <p className="text-4xl font-bold text-primary">₽156 000</p>
+                  <p className="text-sm text-secondary mt-2">+56% за год</p>
                 </CardContent>
               </Card>
 
@@ -343,7 +359,7 @@ const Index = () => {
                   <CardTitle className="text-lg">Доходность</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-4xl font-bold text-secondary">0%</p>
+                  <p className="text-4xl font-bold text-secondary">+56%</p>
                   <p className="text-sm text-muted-foreground mt-2">За всё время</p>
                 </CardContent>
               </Card>
@@ -353,7 +369,7 @@ const Index = () => {
                   <CardTitle className="text-lg">Активы</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-4xl font-bold">0</p>
+                  <p className="text-4xl font-bold">8</p>
                   <p className="text-sm text-muted-foreground mt-2">Позиций в портфеле</p>
                 </CardContent>
               </Card>
@@ -361,14 +377,81 @@ const Index = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>Ваш портфель пуст</CardTitle>
-                <CardDescription>Добавьте первые активы для отслеживания</CardDescription>
+                <CardTitle>График роста портфеля</CardTitle>
+                <CardDescription>Динамика стоимости за последние 12 месяцев</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button className="w-full md:w-auto" onClick={() => setActiveSection('recommendations')}>
-                  <Icon name="Plus" size={20} className="mr-2" />
-                  Посмотреть рекомендации
-                </Button>
+                <div className="h-80 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={portfolioData}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                      <XAxis 
+                        dataKey="month" 
+                        className="text-sm"
+                        tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                      />
+                      <YAxis 
+                        className="text-sm"
+                        tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                        tickFormatter={(value) => `₽${(value / 1000).toFixed(0)}k`}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'hsl(var(--card))',
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '8px'
+                        }}
+                        formatter={(value: number) => [`₽${value.toLocaleString('ru-RU')}`, 'Стоимость']}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="value" 
+                        stroke="hsl(var(--primary))" 
+                        strokeWidth={3}
+                        dot={{ fill: 'hsl(var(--primary))', r: 4 }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Структура портфеля</CardTitle>
+                <CardDescription>Распределение активов по типам</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Акции</span>
+                      <span className="text-sm text-muted-foreground">60%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full bg-primary" style={{ width: '60%' }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Облигации</span>
+                      <span className="text-sm text-muted-foreground">30%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full bg-secondary" style={{ width: '30%' }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Фонды</span>
+                      <span className="text-sm text-muted-foreground">10%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full bg-accent" style={{ width: '10%' }} />
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
