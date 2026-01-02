@@ -100,6 +100,20 @@
   body {
     @apply bg-background text-foreground;
     font-family: "Open Sans", sans-serif;
+    background-image:
+      radial-gradient(at 0% 0%, hsl(199, 89%, 48%, 0.05) 0px, transparent 50%),
+      radial-gradient(
+        at 100% 0%,
+        hsl(142, 76%, 36%, 0.05) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 100% 100%,
+        hsl(199, 89%, 48%, 0.03) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 0% 100%, hsl(142, 76%, 36%, 0.03) 0px, transparent 50%);
+    background-attachment: fixed;
   }
 
   h1,
@@ -109,5 +123,42 @@
   h5,
   h6 {
     font-family: "Montserrat", sans-serif;
+  }
+
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-ticker {
+    animation: ticker 30s linear infinite;
+  }
+
+  .animate-ticker:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }

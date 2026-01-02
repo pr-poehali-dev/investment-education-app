@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -23,6 +24,28 @@ const Index = () => {
     { month: 'Окт', value: 142000 },
     { month: 'Ноя', value: 148000 },
     { month: 'Дек', value: 156000 }
+  ];
+
+  const portfolioAssets = [
+    { ticker: 'AAPL', name: 'Apple Inc.', quantity: 10, avgPrice: 150, currentPrice: 175.43, value: 1754.3, change: 16.95 },
+    { ticker: 'GOOGL', name: 'Alphabet', quantity: 15, avgPrice: 120, currentPrice: 139.82, value: 2097.3, change: 16.52 },
+    { ticker: 'MSFT', name: 'Microsoft', quantity: 8, avgPrice: 340, currentPrice: 378.91, value: 3031.28, change: 11.44 },
+    { ticker: 'NVDA', name: 'NVIDIA', quantity: 12, avgPrice: 420, currentPrice: 485.20, value: 5822.4, change: 15.52 },
+    { ticker: 'TSLA', name: 'Tesla', quantity: 20, avgPrice: 180, currentPrice: 242.15, value: 4843, change: 34.53 },
+    { ticker: 'OFZ-52001', name: 'ОФЗ 52001', quantity: 50, avgPrice: 980, currentPrice: 1025, value: 51250, change: 4.59 },
+    { ticker: 'SBER', name: 'Сбербанк', quantity: 100, avgPrice: 250, currentPrice: 285.50, value: 28550, change: 14.2 },
+    { ticker: 'VTBX', name: 'ВТБ', quantity: 500, avgPrice: 0.045, currentPrice: 0.052, value: 26000, change: 15.56 }
+  ];
+
+  const tickerData = [
+    { symbol: 'AAPL', price: '$175.43', change: '+2.3%', up: true },
+    { symbol: 'GOOGL', price: '$139.82', change: '+1.8%', up: true },
+    { symbol: 'MSFT', price: '$378.91', change: '-0.5%', up: false },
+    { symbol: 'NVDA', price: '$485.20', change: '+5.2%', up: true },
+    { symbol: 'TSLA', price: '$242.15', change: '+3.7%', up: true },
+    { symbol: 'AMZN', price: '$178.25', change: '+1.2%', up: true },
+    { symbol: 'META', price: '$512.33', change: '+2.8%', up: true },
+    { symbol: 'NFLX', price: '$645.78', change: '-1.3%', up: false }
   ];
 
   const articles = [
@@ -101,7 +124,21 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b bg-card sticky top-0 z-50 shadow-sm">
+      <div className="bg-card border-b py-2 overflow-hidden">
+        <div className="flex animate-ticker whitespace-nowrap">
+          {[...tickerData, ...tickerData].map((item, index) => (
+            <div key={index} className="inline-flex items-center mx-6">
+              <span className="font-semibold text-sm mr-2">{item.symbol}</span>
+              <span className="text-sm mr-2">{item.price}</span>
+              <span className={`text-sm font-medium ${item.up ? 'text-secondary' : 'text-destructive'}`}>
+                {item.change}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <nav className="border-b bg-card/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -155,32 +192,32 @@ const Index = () => {
             </section>
 
             <section className="grid md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('education')}>
+              <Card className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer glass-card border-l-4 border-l-primary animate-float" onClick={() => setActiveSection('education')}>
                 <CardHeader>
-                  <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="GraduationCap" size={24} className="text-primary-foreground" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+                    <Icon name="GraduationCap" size={28} className="text-primary-foreground" />
                   </div>
-                  <CardTitle>Обучение</CardTitle>
+                  <CardTitle className="text-xl">Обучение</CardTitle>
                   <CardDescription>Статьи и материалы для начинающих</CardDescription>
                 </CardHeader>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('recommendations')}>
+              <Card className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer glass-card border-l-4 border-l-secondary animate-float" style={{ animationDelay: '0.2s' }} onClick={() => setActiveSection('recommendations')}>
                 <CardHeader>
-                  <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="LineChart" size={24} className="text-secondary-foreground" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-secondary to-secondary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+                    <Icon name="LineChart" size={28} className="text-secondary-foreground" />
                   </div>
-                  <CardTitle>Рекомендации</CardTitle>
+                  <CardTitle className="text-xl">Рекомендации</CardTitle>
                   <CardDescription>Какие акции стоит рассмотреть</CardDescription>
                 </CardHeader>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('glossary')}>
+              <Card className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer glass-card border-l-4 border-l-primary animate-float" style={{ animationDelay: '0.4s' }} onClick={() => setActiveSection('glossary')}>
                 <CardHeader>
-                  <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="BookMarked" size={24} className="text-primary-foreground" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+                    <Icon name="BookMarked" size={28} className="text-primary-foreground" />
                   </div>
-                  <CardTitle>Словарь</CardTitle>
+                  <CardTitle className="text-xl">Словарь</CardTitle>
                   <CardDescription>Все термины простыми словами</CardDescription>
                 </CardHeader>
               </Card>
@@ -200,17 +237,17 @@ const Index = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((article) => (
-                <Card key={article.id} className="hover:shadow-lg transition-all hover:scale-105">
+                <Card key={article.id} className="hover:shadow-xl transition-all hover:scale-105 glass-card group">
                   <CardHeader>
-                    <div className={`w-16 h-16 ${article.color} rounded-xl flex items-center justify-center mb-4`}>
+                    <div className={`w-16 h-16 ${article.color} rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
                       <Icon name={article.icon} size={32} className="text-white" />
                     </div>
-                    <Badge className="w-fit mb-2">{article.category}</Badge>
+                    <Badge className="w-fit mb-2 bg-primary/10 text-primary border-primary">{article.category}</Badge>
                     <CardTitle className="text-xl">{article.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">{article.description}</p>
-                    <Button variant="link" className="mt-4 p-0">
+                    <Button variant="link" className="mt-4 p-0 group-hover:translate-x-2 transition-transform">
                       Читать далее <Icon name="ArrowRight" size={16} className="ml-2" />
                     </Button>
                   </CardContent>
@@ -417,40 +454,123 @@ const Index = () => {
               </CardContent>
             </Card>
 
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Структура портфеля</CardTitle>
+                  <CardDescription>Распределение активов по типам</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">Акции</span>
+                        <span className="text-sm text-muted-foreground">60%</span>
+                      </div>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-primary to-primary/70 transition-all duration-500" style={{ width: '60%' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">Облигации</span>
+                        <span className="text-sm text-muted-foreground">30%</span>
+                      </div>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-secondary to-secondary/70 transition-all duration-500" style={{ width: '30%' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">Фонды</span>
+                        <span className="text-sm text-muted-foreground">10%</span>
+                      </div>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-accent to-accent/70 transition-all duration-500" style={{ width: '10%' }} />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Топ активов</CardTitle>
+                  <CardDescription>Лучшие позиции по доходности</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {portfolioAssets.slice(0, 3).sort((a, b) => b.change - a.change).map((asset, index) => (
+                      <div key={asset.ticker} className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                        <div className="flex items-center space-x-3">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
+                            index === 0 ? 'bg-yellow-500 text-white' : 
+                            index === 1 ? 'bg-gray-400 text-white' : 
+                            'bg-orange-600 text-white'
+                          }`}>
+                            {index + 1}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sm">{asset.ticker}</p>
+                            <p className="text-xs text-muted-foreground">{asset.name}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-secondary">+{asset.change.toFixed(2)}%</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             <Card>
               <CardHeader>
-                <CardTitle>Структура портфеля</CardTitle>
-                <CardDescription>Распределение активов по типам</CardDescription>
+                <CardTitle>Детальный состав портфеля</CardTitle>
+                <CardDescription>Все активы с расчётом прибыли и убытков</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Акции</span>
-                      <span className="text-sm text-muted-foreground">60%</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: '60%' }} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Облигации</span>
-                      <span className="text-sm text-muted-foreground">30%</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full bg-secondary" style={{ width: '30%' }} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Фонды</span>
-                      <span className="text-sm text-muted-foreground">10%</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full bg-accent" style={{ width: '10%' }} />
-                    </div>
-                  </div>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Тикер</TableHead>
+                        <TableHead>Название</TableHead>
+                        <TableHead className="text-right">Кол-во</TableHead>
+                        <TableHead className="text-right">Средняя цена</TableHead>
+                        <TableHead className="text-right">Текущая цена</TableHead>
+                        <TableHead className="text-right">Стоимость</TableHead>
+                        <TableHead className="text-right">Доходность</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {portfolioAssets.map((asset) => (
+                        <TableRow key={asset.ticker} className="hover:bg-muted/50">
+                          <TableCell className="font-semibold">{asset.ticker}</TableCell>
+                          <TableCell className="text-muted-foreground">{asset.name}</TableCell>
+                          <TableCell className="text-right">{asset.quantity}</TableCell>
+                          <TableCell className="text-right">₽{asset.avgPrice.toFixed(2)}</TableCell>
+                          <TableCell className="text-right">₽{asset.currentPrice.toFixed(2)}</TableCell>
+                          <TableCell className="text-right font-semibold">₽{asset.value.toLocaleString('ru-RU')}</TableCell>
+                          <TableCell className="text-right">
+                            <Badge variant={asset.change > 0 ? 'default' : 'destructive'} className={asset.change > 0 ? 'bg-secondary' : ''}>
+                              {asset.change > 0 ? '+' : ''}{asset.change.toFixed(2)}%
+                            </Badge>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      <TableRow className="font-bold bg-muted/30">
+                        <TableCell colSpan={5}>Итого</TableCell>
+                        <TableCell className="text-right">₽{portfolioAssets.reduce((sum, a) => sum + a.value, 0).toLocaleString('ru-RU')}</TableCell>
+                        <TableCell className="text-right">
+                          <Badge className="bg-secondary">
+                            +{((portfolioAssets.reduce((sum, a) => sum + a.value, 0) - 100000) / 100000 * 100).toFixed(2)}%
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </div>
               </CardContent>
             </Card>
